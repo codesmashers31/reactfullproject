@@ -18,7 +18,7 @@ try{
 
 const savedmission = await newmission.save();
 
-res.status(201).json()
+res.status(201).json({message:"Mission added succfully"})
 
 
 }catch(err){

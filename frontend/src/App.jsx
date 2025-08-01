@@ -22,7 +22,7 @@ function App() {
 
   const onSuccess = () => {
     
-   alert('sajdjsa');
+   
     fetchMissions(); // Re-fetch missions after adding
   };
 
@@ -31,8 +31,8 @@ function App() {
     try {
    const req =   await axios.post("http://localhost:5000/api/users", formData);
       setFormdata({ title: "", location: "", target: "", weaponUsed: "" });
-      // console.log(req.data);
-      // alert(req.data.message)
+      console.log(req.data);
+      alert(req.data.message)
       onSuccess();
     } catch (err) {
       console.error("Error submitting mission:", err);
