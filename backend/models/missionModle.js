@@ -26,7 +26,7 @@ const missionSchema = new mongoose.Schema({
   },
   weaponUsed: {
     type: String,
-    default: "Naalu Bullet",
+    required:true,
   },
   createdAt: {
     type: Date,

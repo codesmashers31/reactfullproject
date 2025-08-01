@@ -1,15 +1,9 @@
-import express from 'express';
-import {  addMission} from '../controllers/authUser.js';
-
+import express from "express";
+import { addMission, getMissions } from "../controllers/authUser.js";
 
 const router = express.Router();
 
-
-
-router.post("/",addMission)
-// router.get('/leodata/',getleodata)
-
-
-// router.get('/:id',get_user_data_new)
+router.post("/", addMission);
+router.get("/getuser", getMissions); // <-- New GET route
 
 export default router;

@@ -1,35 +1,82 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [formData, setFormdata] = useState({ title: "", location: "", target: "", weaponUsed: "" });
+  const [missions, setMissions] = useState([{}]);
+
+  // Fetch missions from the backend
+  const fetchMissions = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/users/getuser");
+      setMissions(res.data);
+    } catch (err) {
+      console.error("Error fetching missions:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchMissions();
+  }, []);
+
+  const onSuccess = () => {
+    
+   alert('sajdjsa');
+    fetchMissions(); // Re-fetch missions after adding
+  };
+
+  const handlesubmit = async (e) => {
+    e.preventDefault();
+    try {
+   const req =   await axios.post("http://localhost:5000/api/users", formData);
+      setFormdata({ title: "", location: "", target: "", weaponUsed: "" });
+      // console.log(req.data);
+      // alert(req.data.message)
+      onSuccess();
+    } catch (err) {
+      console.error("Error submitting mission:", err);
+    }
+  };
+
+  const handlechange = (e) => {
+    setFormdata({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <>
+      <h1 className='bg-blue-600 text-2xl text-white p-4 text-center'>This is Frontend</h1>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <form onSubmit={handlesubmit} className='space-y-4 bg-white p-6 rounded-xl shadow-md max-w-md mx-auto mt-10'>
+          {["title", "location", "target", "weaponUsed"].map((field) => (
+            <input
+              key={field}
+              type="text"
+              name={field}
+              placeholder={field}
+              value={formData[field]}
+              onChange={handlechange}
+              className='w-full p-2 border rounded'
+            />
+          ))}
+          <button type='submit' className='bg-black text-white rounded-sm p-4 px-4 hover:bg-gray-300'>Add mission</button>
+        </form>
+
+        {/* Render Missions */}
+        <div className='max-w-md mx-auto mt-6 space-y-4'>
+          {missions.map((mission) => (
+            <div key={mission._id} className='border p-4 rounded shadow'>
+              <h2 className='font-bold text-lg'>{mission.title}</h2>
+              <p><strong>Location:</strong> {mission.location}</p>
+              <p><strong>Target:</strong> {mission.target}</p>
+              <p><strong>Weapon Used:</strong> {mission.weaponUsed}</p>
+              <p><strong>Completed:</strong> {mission.completed ? "Yes" : "No"}</p>
+            </div>
+          ))}
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
