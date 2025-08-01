@@ -45,7 +45,7 @@ function App() {
 
   return (
     <>
-      <h1 className='bg-blue-600 text-2xl text-white p-4 text-center'>This is Frontend</h1>
+      <h1 className='bg-blue-700 text-2xl text-white p-4 text-center'>This is Frontend</h1>
       <div>
         <form onSubmit={handlesubmit} className='space-y-4 bg-white p-6 rounded-xl shadow-md max-w-md mx-auto mt-10'>
           {["title", "location", "target", "weaponUsed"].map((field) => (
