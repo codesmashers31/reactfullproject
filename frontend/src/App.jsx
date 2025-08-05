@@ -55,14 +55,15 @@ navicate('/register')
   return (
     <>
 
-    
+    <button onClick={movetonext}>Register Data</button>
 
+<br />
     <Routes>
       <Route path="/register" element={<Register/>}></Route>
     </Routes>
      
      
-    <button onClick={movetonext}>Register Data</button>
+    
      
 
 
