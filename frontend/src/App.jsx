@@ -1,69 +1,71 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
-import { Link,Route,Routes,useNavigate } from 'react-router-dom';
 import Register from './Register';
 
-function App() {
-  
-//   const [formData, setFormdata] = useState({ title: "", location: "", target: "", weaponUsed: "" });
-//   const [missions, setMissions] = useState([{}]);
+function App () {
 
-//   // Fetch missions from the backend
-//   const fetchMissions = async () => {
-//     try {
-//       const res = await axios.get("http://localhost:5000/api/users/getuser");
-//       setMissions(res.data);
-//     } catch (err) {
-//       console.error("Error fetching missions:", err);
-//     }
-//   };
+  //   const [formData, setFormdata] = useState({ title: "", location: "", target: "", weaponUsed: "" });
+  //   const [missions, setMissions] = useState([{}]);
 
-//   // useEffect(() => {
-//   //   fetchMissions();
-//   // }, []);
+  //   // Fetch missions from the backend
+  //   const fetchMissions = async () => {
+  //     try {
+  //       const res = await axios.get("http://localhost:5000/api/users/getuser");
+  //       setMissions(res.data);
+  //     } catch (err) {
+  //       console.error("Error fetching missions:", err);
+  //     }
+  //   };
 
-//   const onSuccess = () => {
-    
-   
-//     fetchMissions(); // Re-fetch missions after adding
-//   };
+  //   // useEffect(() => {
+  //   //   fetchMissions();
+  //   // }, []);
 
-//   const handlesubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//    const req =   await axios.post("http://localhost:5000/api/users", formData);
-//       setFormdata({ title: "", location: "", target: "", weaponUsed: "" });
-//       console.log(req.data);
-//       alert(req.data.message)
-//       onSuccess();
-//     } catch (err) {
-//       console.error("Error submitting mission:", err);
-//     }
-//   };
+  //   const onSuccess = () => {
 
-//   const handlechange = (e) => {
-//     setFormdata({ ...formData, [e.target.name]: e.target.value });
-//   };
+
+  //     fetchMissions(); // Re-fetch missions after adding
+  //   };
+
+  //   const handlesubmit = async (e) => {
+  //     e.preventDefault();
+  //     try {
+  //    const req =   await axios.post("http://localhost:5000/api/users", formData);
+  //       setFormdata({ title: "", location: "", target: "", weaponUsed: "" });
+  //       console.log(req.data);
+  //       alert(req.data.message)
+  //       onSuccess();
+  //     } catch (err) {
+  //       console.error("Error submitting mission:", err);
+  //     }
+  //   };
+
+  //   const handlechange = (e) => {
+  //     setFormdata({ ...formData, [e.target.name]: e.target.value });
+  //   };
 
   const navicate = useNavigate();
 
-  const movetonext = ()=>{
-navicate('/register')
-  }
+  const movetonext = () => {
+    navicate( '/register' );
+  };
 
   return (
     <>
 
-    
 
-    <Routes>
-      <Route path="/register" element={<Register/>}></Route>
-    </Routes>
-     
-     
-    <button onClick={movetonext}>Register Data</button>
-     
+
+      <Routes>
+        <Route path="/register" element={ <Register /> }></Route>
+      </Routes>
+
+      <div className='h-200 flex items-center justify-center'>
+
+        <button onClick={ movetonext }
+          className="  bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-medium py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-md"
+        >Register Data</button>
+      </div>
+
 
 
 

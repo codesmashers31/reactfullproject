@@ -1,6 +1,7 @@
 import newregister from '../models/register_model.js';
 import bcrypt from 'bcryptjs';
 
+// posting data
 export const registernew = async(r,res)=>{
 
 //console.log(r.body);
@@ -20,9 +21,8 @@ res.status(201).json({message:"User Data Succussfully done"})
 }
 
 
-
+// Getting Data
 export const getregisternew = async(req,res)=>{
-
 
 try{
 
