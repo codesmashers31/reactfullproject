@@ -1,51 +1,87 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
+import { Link,Route,Routes,useNavigate } from 'react-router-dom';
+import Register from './Register';
 
 function App() {
-  const [formData, setFormdata] = useState({ title: "", location: "", target: "", weaponUsed: "" });
-  const [missions, setMissions] = useState([{}]);
+  
+//   const [formData, setFormdata] = useState({ title: "", location: "", target: "", weaponUsed: "" });
+//   const [missions, setMissions] = useState([{}]);
 
-  // Fetch missions from the backend
-  const fetchMissions = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/users/getuser");
-      setMissions(res.data);
-    } catch (err) {
-      console.error("Error fetching missions:", err);
-    }
-  };
+//   // Fetch missions from the backend
+//   const fetchMissions = async () => {
+//     try {
+//       const res = await axios.get("http://localhost:5000/api/users/getuser");
+//       setMissions(res.data);
+//     } catch (err) {
+//       console.error("Error fetching missions:", err);
+//     }
+//   };
 
-  useEffect(() => {
-    fetchMissions();
-  }, []);
+//   // useEffect(() => {
+//   //   fetchMissions();
+//   // }, []);
 
-  const onSuccess = () => {
+//   const onSuccess = () => {
     
    
-    fetchMissions(); // Re-fetch missions after adding
-  };
+//     fetchMissions(); // Re-fetch missions after adding
+//   };
 
-  const handlesubmit = async (e) => {
-    e.preventDefault();
-    try {
-   const req =   await axios.post("http://localhost:5000/api/users", formData);
-      setFormdata({ title: "", location: "", target: "", weaponUsed: "" });
-      console.log(req.data);
-      alert(req.data.message)
-      onSuccess();
-    } catch (err) {
-      console.error("Error submitting mission:", err);
-    }
-  };
+//   const handlesubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//    const req =   await axios.post("http://localhost:5000/api/users", formData);
+//       setFormdata({ title: "", location: "", target: "", weaponUsed: "" });
+//       console.log(req.data);
+//       alert(req.data.message)
+//       onSuccess();
+//     } catch (err) {
+//       console.error("Error submitting mission:", err);
+//     }
+//   };
 
-  const handlechange = (e) => {
-    setFormdata({ ...formData, [e.target.name]: e.target.value });
-  };
+//   const handlechange = (e) => {
+//     setFormdata({ ...formData, [e.target.name]: e.target.value });
+//   };
+
+  const navicate = useNavigate();
+
+  const movetonext = ()=>{
+navicate('/register')
+  }
 
   return (
     <>
-      <h1 className='bg-blue-700 text-2xl text-white p-4 text-center'>This is Frontend</h1>
+
+    
+
+    <Routes>
+      <Route path="/register" element={<Register/>}></Route>
+    </Routes>
+     
+     
+    <button onClick={movetonext}>Register Data</button>
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {/* <h1 className='bg-blue-700 text-2xl text-white p-4 text-center'>This is Frontend</h1>
       <div>
         <form onSubmit={handlesubmit} className='space-y-4 bg-white p-6 rounded-xl shadow-md max-w-md mx-auto mt-10'>
           {["title", "location", "target", "weaponUsed"].map((field) => (
@@ -62,7 +98,7 @@ function App() {
           <button type='submit' className='bg-black text-white rounded-sm p-4 px-4 hover:bg-gray-300'>Add mission</button>
         </form>
 
-        {/* Render Missions */}
+     
         <div className='max-w-md mx-auto mt-6 space-y-4'>
           {missions.map((mission) => (
             <div key={mission._id} className='border p-4 rounded shadow'>
@@ -74,7 +110,8 @@ function App() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
+
     </>
   );
 }
