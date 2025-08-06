@@ -1,6 +1,6 @@
 import express from "express";
 import { addMission, getMissions } from "../controllers/authUser.js";
-import { registernew,getregisternew } from "../controllers/registerController.js";
+import { registernew,getregisternew,getregistersingleuser,update_data } from "../controllers/registerController.js";
 
 
 const router = express.Router();
@@ -11,4 +11,7 @@ router.post("/", addMission);
 
 router.post("/register",registernew)
 router.get("/registerdata",getregisternew)
+router.get("/registerdata/:id",getregistersingleuser);
+router.put("/updatedata/:id",update_data);
+
 export default router;
