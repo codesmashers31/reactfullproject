@@ -59,7 +59,7 @@ function App () {
         <Route path="/register" element={ <Register /> }></Route>
       </Routes>
 
-      <div className='h-200 flex items-center justify-center'>
+      <div className='flex items-center justify-center'>
 
         <button onClick={ movetonext }
           className="  bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-medium py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-md"
