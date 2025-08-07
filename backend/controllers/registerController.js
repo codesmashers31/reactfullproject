@@ -93,3 +93,29 @@ res.status(200).json({message:"Updated sufully"})
 
 
 }
+
+
+
+export const deleteuser = async (req,res)=>{
+
+//console.log(req.params);
+
+const {id} = req.params;
+
+try{
+
+
+const deleteuser = await  newregister.findByIdAndDelete(id);
+
+if(!deleteuser) {
+    return res.status(404).json({message:"Not User Founded"})
+}else{
+    return res.status(200).json({message:"Succfully Deleted"})
+}
+}catch(error){
+    console.log('Delete error',error);
+    
+}
+
+
+}
