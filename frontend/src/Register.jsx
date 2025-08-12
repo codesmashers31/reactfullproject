@@ -60,7 +60,7 @@ const Register = () => {
 
   const handleDelete = async ( id ) => {
     if ( window.confirm( "Are you sure you want to delete this user?" ) ) {
-      const res = await axios.delete( `http://localhost:5000/api/users/${ id }` );
+      const res = await axios.delete( `http://localhost:5000/api/users/delete/${ id }` );
       alert( res.data.message );
 
       // Refresh data
@@ -175,11 +175,13 @@ const Register = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div className="flex space-x-2">
                           <button
-                            onClick={ () => handleEdit( user ) }
+                            onClick={ () => handleEdit( user._id || user.id ) }
                             className="text-indigo-600 hover:text-indigo-900 bg-indigo-100 hover:bg-indigo-200 px-3 py-1 rounded-md text-xs font-medium transition-all duration-200"
                           >
                             Edit
                           </button>
+
+                          
                           <button
                             onClick={ () => handleDelete( user._id || user.id ) }
                             className="text-red-600 hover:text-red-900 bg-red-100 hover:bg-red-200 px-3 py-1 rounded-md text-xs font-medium transition-all duration-200"
