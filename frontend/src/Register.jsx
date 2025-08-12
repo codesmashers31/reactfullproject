@@ -21,7 +21,11 @@ const Register = () => {
     e.preventDefault();
     const { name, email, password } = register;
 
-    if ( name && email && password !== "" ) {
+    if ( !name || !email || !password ) {
+      return alert( "Please fill all fields" );
+    }
+
+    try {
       if ( isEditing ) {
         // Update existing user
         const res = await axios.put( `http://localhost:5000/api/users/${ register.id }`, register );
@@ -33,12 +37,14 @@ const Register = () => {
         alert( res.data.message );
       }
       // Refresh data
+
       const updatedData = await axios.get( "http://localhost:5000/api/users/registerdata" );
       setGetdata( updatedData.data );
       // Reset form
       setRegister( { name: "", email: "", password: "", id: "" } );
-    } else {
-      alert( "fill all details" );
+    } catch ( err ) {
+      console.err( err );
+      alert( err.response?.data?.message || "Something went wrong" );
     }
   };
 
@@ -46,7 +52,7 @@ const Register = () => {
     setRegister( {
       name: user.name,
       email: user.email,
-      password: user.password,
+      password: "",
       id: user._id || user.id
     } );
     setIsEditing( true );
@@ -56,6 +62,7 @@ const Register = () => {
     if ( window.confirm( "Are you sure you want to delete this user?" ) ) {
       const res = await axios.delete( `http://localhost:5000/api/users/${ id }` );
       alert( res.data.message );
+
       // Refresh data
       const updatedData = await axios.get( "http://localhost:5000/api/users/registerdata" );
       setGetdata( updatedData.data );
@@ -93,7 +100,7 @@ const Register = () => {
                   </label>
                   <input
                     id={ field }
-                    type={ field === "password" ? "password" : "text" }
+                    type={ field === "password" ? "password" : field === "email" ? "email" : "text" }
                     name={ field }
                     placeholder={ `Enter your ${ field }` }
                     value={ register[ field ] }
@@ -155,7 +162,7 @@ const Register = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   { getdata.map( ( user, index ) => (
-                    <tr key={ index } className={ index % 2 === 0 ? 'bg-white' : 'bg-gray-50' }>
+                    <tr key={ user._id || user.id } className={ index % 2 === 0 ? 'bg-white' : 'bg-gray-50' }>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                         { user.name }
                       </td>

@@ -33,8 +33,6 @@ res.status(201).json({message:"Mission added succfully"})
 
 }
 
-
-
 export const getMissions = async (req, res) => {
   try {
     const missions = await Mission.find();
