@@ -48,23 +48,23 @@ export const getregisternew = async ( req, res ) => {
 
 
 
-// export const getregistersingleuser = async(req,res)=>{
+export const getregistersingleuser = async(req,res)=>{
 
-// try{
+try{
 
-// //console.log(req.params);
+//console.log(req.params);
 
-// const {id} = req.params;
+const {id} = req.params;
 
-// const userdata_single = await newregister.findById(id);
-// // console.log(userdata_single);
-// res.status(200).json(userdata_single)
+const userdata_single = await newregister.findById(id);
+// console.log(userdata_single);
+res.status(200).json(userdata_single)
 
-// }catch(error){
-// console.log(error);
+}catch(error){
+console.log(error);
 
-// }
-// }
+}
+}
 
 
 

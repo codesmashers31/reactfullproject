@@ -1,7 +1,7 @@
 import express from "express";
 import { addMission, getMissions } from "../controllers/authUser.js";
 
-import { registernew,getregisternew,getregistersingleuser,update_data,deleteuser } from "../controllers/registerController.js";
+import { registernew,getregisternew,getregistersingleuser,update_data,delete_data } from "../controllers/registerController.js";
 import { createproduct,getProductbyid,getproductbyfilters } from "../controllers/productController.js";
 
 
@@ -16,7 +16,7 @@ router.get("/registerdata",getregisternew)
 router.get("/registerdata/:id",getregistersingleuser);
 router.put("/updatedata/:id",update_data);
 
-router.delete("/delete/:id",deleteuser);
+router.delete("/delete/:id",delete_data);
 
 
 
