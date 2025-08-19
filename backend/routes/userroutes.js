@@ -18,8 +18,6 @@ router.put("/updatedata/:id",update_data);
 
 router.delete("/delete/:id",delete_data);
 
-
-
 router.post("/postadd",createproduct);
 
 router.get("/postadd",getProductbyid);

@@ -5,7 +5,7 @@ export const validation_email = async(req,res)=>{
 
 
 
-console.log(req.body);
+//console.log(req.body);
 
 const {name,email,password} = req.body;
 try{
