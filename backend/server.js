@@ -19,7 +19,7 @@ app.use(changeto_json);
 
 connectDb();
 
-
+app.use("/upload",express.static("upload"))
 app.use("/api/users",userroutes);
 app.use("/api/auth",authRoute);
 

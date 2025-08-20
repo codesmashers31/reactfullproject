@@ -1,124 +1,62 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import './App.css';
-import Register from './Register';
+import { useEffect, useState } from "react";
+import axios from 'axios';
+const App = ()=>{
 
-function App () {
+  const [name,setName] = useState("");
+  const [avatar,setAvatar] = useState(null);
+  const[user,setUser] = useState([])
+   
 
-  //   const [formData, setFormdata] = useState({ title: "", location: "", target: "", weaponUsed: "" });
-  //   const [missions, setMissions] = useState([{}]);
+  const handleclick = async()=>{
 
+    const fromdata = new FormData();
 
+    fromdata.append("name",name);
+    fromdata.append("avatar",avatar);
 
-  
-  //   // Fetch missions from the backend
-  //   const fetchMissions = async () => {
-  //     try {
-  //       const res = await axios.get("http://localhost:5000/api/users/getuser");
-  //       setMissions(res.data);
-  //     } catch (err) {
-  //       console.error("Error fetching missions:", err);
-  //     }
-  //   };
+    const res = await axios.post("http://localhost:5000/api/auth/create",fromdata,{headers:{"Content-Type":"multipart/form-data"}})
+    
+   alert(res.data.message);
+  //  setName("")
 
-  //   // useEffect(() => {
-  //   //   fetchMissions();
-  //   // }, []);
+  //  setAvatar("")
 
-  //   const onSuccess = () => {
+  }
 
+const getProfile = async () =>{
+    const res = await axios.get("http://localhost:5000/api/auth/getprofile")
+   setUser( res.data.UserProfile)
+  }
+useEffect(()=>{
+  getProfile();
+},[])
 
-  //     fetchMissions(); // Re-fetch missions after adding
-  //   };
-
-  //   const handlesubmit = async (e) => {
-  //     e.preventDefault();
-  //     try {
-  //    const req =   await axios.post("http://localhost:5000/api/users", formData);
-  //       setFormdata({ title: "", location: "", target: "", weaponUsed: "" });
-  //       console.log(req.data);
-  //       alert(req.data.message)
-  //       onSuccess();
-  //     } catch (err) {
-  //       console.error("Error submitting mission:", err);
-  //     }
-  //   };
-
-  //   const handlechange = (e) => {
-  //     setFormdata({ ...formData, [e.target.name]: e.target.value });
-  //   };
-
-  const navicate = useNavigate();
-
-  const movetonext = () => {
-    navicate( '/register' );
-  };
-
-  return (
-    <>
-
-
-
-      <Routes>
-        <Route path="/register" element={ <Register /> }></Route>
-      </Routes>
-
-      <div className='flex items-center justify-center'>
-
-        <button onClick={ movetonext }
-          className="  bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-medium py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-md"
-        >Register Data</button>
+return (
+<>
+  <div>
+<h2>user Form</h2>
+     <input type="text" onChange={(e)=>{setName(e.target.value)}} placeholder="Enter the name" />
+     <br /><br />
+     <input type="file"  onChange={(e)=>{setAvatar(e.target.files[0])}} />
+     <br /><br />
+     <button onClick={handleclick}>Create User</button>
+</div>
+<div className="flex">
+  {user.map((i)=>(
+    <div  key={i._id}>
+      <div className=" p-4 m-1">
+        <h1>{i.name}</h1>
+        <img className="rounded-2xl w-50 h-50" src={`http://localhost:5000/${i.avatar}`} alt={i.avatar} />
       </div>
+    </div>
+  ))}
+</div>
+</>
+)
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      {/* <h1 className='bg-blue-700 text-2xl text-white p-4 text-center'>This is Frontend</h1>
-      <div>
-        <form onSubmit={handlesubmit} className='space-y-4 bg-white p-6 rounded-xl shadow-md max-w-md mx-auto mt-10'>
-          {["title", "location", "target", "weaponUsed"].map((field) => (
-            <input
-              key={field}
-              type="text"
-              name={field}
-              placeholder={field}
-              value={formData[field]}
-              onChange={handlechange}
-              className='w-full p-2 border rounded'
-            />
-          ))}
-          <button type='submit' className='bg-black text-white rounded-sm p-4 px-4 hover:bg-gray-300'>Add mission</button>
-        </form>
-
-     
-        <div className='max-w-md mx-auto mt-6 space-y-4'>
-          {missions.map((mission) => (
-            <div key={mission._id} className='border p-4 rounded shadow'>
-              <h2 className='font-bold text-lg'>{mission.title}</h2>
-              <p><strong>Location:</strong> {mission.location}</p>
-              <p><strong>Target:</strong> {mission.target}</p>
-              <p><strong>Weapon Used:</strong> {mission.weaponUsed}</p>
-              <p><strong>Completed:</strong> {mission.completed ? "Yes" : "No"}</p>
-            </div>
-          ))}
-        </div>
-      </div> */}
-
-    </>
-  );
 }
 
 export default App;
